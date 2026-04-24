@@ -10,8 +10,9 @@ class CustomEmbeddingPipeline:
     def __init__(self):
         self.config = Config()
         # Uses ONNX Runtime — much lighter than sentence-transformers + torch
+        # "BAAI/bge-small-en-v1.5" is supported in fastembed 0.5+
         self.model = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
-        # Dimension for bge-small-en-v1.5
+        # Embedding dimension for bge-small-en-v1.5
         self.dimension = 384
         self.index = None
         self.chunks = []
