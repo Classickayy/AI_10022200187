@@ -1,32 +1,31 @@
 # Web Application Framework
 streamlit>=1.28.0,<2.0.0
 
-# Machine Learning & Embeddings
-sentence-transformers>=2.2.0
-faiss-cpu>=1.7.4        # Use faiss-gpu>=1.7.4 if you have CUDA support
+# Embeddings — fastembed uses ONNX Runtime (no PyTorch needed, ~50 MB vs ~600 MB)
+fastembed>=0.2.0           # Drop-in replacement for sentence-transformers embedding
+faiss-cpu>=1.7.4
 numpy>=1.24.0,<2.0.0
-scikit-learn>=1.3.0     # Required dependency for sentence-transformers
+
+# Cross-encoder reranker (lighter ONNX-based alternative; lazy-loaded only if reranking is on)
+# NOTE: if memory is still tight on Render, set use_reranking=False in the sidebar
+onnxruntime>=1.16.0        # Runtime used by fastembed — already a transitive dep
 
 # Large Language Model API
-openai>=1.0.0           # Uses new OpenAI API format (post-Nov 2023)
-groq>=0.4.0             # Official Groq API client
+groq>=0.4.0                # Official Groq API client
+openai>=1.0.0              # Keep for optional OpenAI fallback
 
 # Data Processing & Document Parsing
 pandas>=2.0.0
-pdfplumber>=0.10.0      # For PDF text extraction (budget document)
-python-docx>=0.8.11     # Optional: if you need DOCX support
+pdfplumber>=0.10.0         # PDF text extraction (budget document)
 
-# Text Processing & Tokenization
-nltk>=3.8.0             # For query expansion (WordNet)
-tiktoken>=0.5.0         # For OpenAI token counting and context management
-regex>=2023.0.0         # For advanced pattern matching in chunking
+# Text Processing
+nltk>=3.8.0                # Query expansion (WordNet)
+regex>=2023.0.0            # Pattern matching in chunking
 
 # Utilities
-python-dotenv>=1.0.0    # For managing API keys via .env file
-tqdm>=4.65.0            # Progress bars for embedding generation
+python-dotenv>=1.0.0       # .env file support
+tqdm>=4.65.0               # Progress bars
+requests>=2.31.0           # HTTP client
 
-# PyTorch & TorchVision (required by some Transformers image models)
-# On Windows, prefer the official install instructions: https://pytorch.org/get-started/locally/
-torch
-torchvision
-requests>=2.31.0       # HTTP client for GROK/other LLM providers
+# REMOVED to stay under Render's 512 MB RAM limit:
+#   torch, torchvision, sentence-transformers, scikit-learn, tiktoken, python-docx

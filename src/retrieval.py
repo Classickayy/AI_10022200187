@@ -1,4 +1,3 @@
-from sentence_transformers import CrossEncoder
 import nltk
 from nltk.corpus import wordnet
 from typing import List, Tuple, Dict
@@ -8,7 +7,7 @@ from src.embeddings import CustomEmbeddingPipeline
 class AdvancedRetriever(CustomEmbeddingPipeline):
     def __init__(self):
         super().__init__()
-        self.reranker = CrossEncoder(self.config.RERANKER_MODEL)
+        self._reranker = None   # lazy-loaded on first use to save startup RAM
         self.min_vector_score = 0.2
         self.stopwords = {
             "the", "a", "an", "and", "or", "to", "for", "of", "in", "on",
@@ -104,11 +103,22 @@ class AdvancedRetriever(CustomEmbeddingPipeline):
     
     def rerank_results(self, query: str, results: List[Tuple[Dict, float]]) -> List[Tuple[Dict, float]]:
         """
-        Cross-encoder re-ranking for better precision (Part B)
+        Cross-encoder re-ranking for better precision (Part B).
+        The cross-encoder is lazy-loaded on first call to keep startup RAM low.
+        Falls back to returning the top-k by vector score if the model fails to load.
         """
+        if self._reranker is None:
+            try:
+                from sentence_transformers import CrossEncoder
+                self._reranker = CrossEncoder(self.config.RERANKER_MODEL)
+            except Exception as e:
+                print(f"Warning: could not load CrossEncoder ({e}). Skipping reranking.")
+                results_sorted = sorted(results, key=lambda x: x[1], reverse=True)
+                return results_sorted[:self.config.RERANK_TOP_K]
+
         pairs = [[query, res[0]['content']] for res in results]
-        scores = self.reranker.predict(pairs)
-        
+        scores = self._reranker.predict(pairs)
+
         reranked = [(results[i][0], float(scores[i])) for i in range(len(results))]
         reranked.sort(key=lambda x: x[1], reverse=True)
         return reranked[:self.config.RERANK_TOP_K]
