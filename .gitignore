@@ -21,12 +21,10 @@ __pycache__/
 *.pyd
 *.pycache
 
-# ============================================================
-# Auto-generated / large binary artifacts
-# (run `python run_ingestion.py` locally to rebuild these)
-# ============================================================
-vector_store/
-data/processed/chunks.json
+# vector_store/ is now COMMITTED to the repo so Render doesn't rebuild
+# the FAISS index on every deploy (saves build time and avoids OOM).
+# To rebuild the index locally: python run_ingestion.py
+# Then commit the updated vector_store/ folder.
 
 # Keep the processed directory skeleton in the repo
 !data/processed/.gitkeep

@@ -1,31 +1,29 @@
-# Web Application Framework
-streamlit>=1.28.0,<2.0.0
+# ============================================================
+# Pinned upper bounds on every package to prevent pip
+# backtracking during Render builds.
+# ============================================================
 
-# Embeddings — fastembed uses ONNX Runtime (no PyTorch needed, ~50 MB vs ~600 MB)
-fastembed>=0.2.0           # Drop-in replacement for sentence-transformers embedding
-faiss-cpu>=1.7.4
+# Web Application Framework
+streamlit>=1.28.0,<1.36.0
+
+# Embeddings — ONNX-based, no PyTorch (fastembed ~50 MB vs torch ~600 MB)
+fastembed>=0.2.0,<0.5.0
+faiss-cpu>=1.7.4,<1.9.0
 numpy>=1.24.0,<2.0.0
 
-# Cross-encoder reranker (lighter ONNX-based alternative; lazy-loaded only if reranking is on)
-# NOTE: if memory is still tight on Render, set use_reranking=False in the sidebar
-onnxruntime>=1.16.0        # Runtime used by fastembed — already a transitive dep
-
-# Large Language Model API
-groq>=0.4.0                # Official Groq API client
-openai>=1.0.0              # Keep for optional OpenAI fallback
+# Large Language Model APIs
+groq>=0.4.0,<2.0.0
+openai>=1.0.0,<2.0.0
 
 # Data Processing & Document Parsing
-pandas>=2.0.0
-pdfplumber>=0.10.0         # PDF text extraction (budget document)
+pandas>=2.0.0,<3.0.0
+pdfplumber>=0.10.0,<0.12.0
 
 # Text Processing
-nltk>=3.8.0                # Query expansion (WordNet)
-regex>=2023.0.0            # Pattern matching in chunking
+nltk>=3.8.0,<4.0.0
+regex>=2023.0.0,<2026.0.0
 
 # Utilities
-python-dotenv>=1.0.0       # .env file support
-tqdm>=4.65.0               # Progress bars
-requests>=2.31.0           # HTTP client
-
-# REMOVED to stay under Render's 512 MB RAM limit:
-#   torch, torchvision, sentence-transformers, scikit-learn, tiktoken, python-docx
+python-dotenv>=1.0.0,<2.0.0
+tqdm>=4.65.0,<5.0.0
+requests>=2.31.0,<3.0.0
