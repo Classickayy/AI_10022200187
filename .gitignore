@@ -1,0 +1,71 @@
+# ============================================================
+# Secrets & environment
+# ============================================================
+.env
+.env.*
+
+# ============================================================
+# Python virtual environments (never commit these)
+# ============================================================
+.venv/
+venv/
+myenv/
+env/
+
+# ============================================================
+# Python byte-code & cache
+# ============================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+
+# ============================================================
+# Auto-generated / large binary artifacts
+# (run `python run_ingestion.py` locally to rebuild these)
+# ============================================================
+vector_store/
+data/processed/chunks.json
+
+# Keep the processed directory skeleton in the repo
+!data/processed/.gitkeep
+
+# ============================================================
+# Runtime pipeline logs  (daily JSONL files)
+# Keep curated experiment artefacts that document results
+# ============================================================
+logs/pipeline_*.jsonl
+# Curated logs we DO want:
+!logs/experiment_log_example.jsonl
+!logs/adversarial_evaluation.json
+
+# ============================================================
+# OS / editor noise
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code / Cursor workspace settings (optional — comment out
+# if your team shares launch configs via .vscode)
+.vscode/
+.cursor/
+
+# JetBrains IDEs
+.idea/
+
+# ============================================================
+# Jupyter / notebook checkpoints
+# ============================================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ============================================================
+# Misc build / dist artefacts
+# ============================================================
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/

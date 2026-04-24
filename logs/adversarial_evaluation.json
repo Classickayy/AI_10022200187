@@ -1,0 +1,99 @@
+{
+  "queries_tested": 2,
+  "per_query_results": [
+    {
+      "query": {
+        "id": 1,
+        "type": "ambiguous",
+        "query": "Who won the election?",
+        "description": "Ambiguous: Does not specify year or region. Tests if system asks for clarification or makes assumptions.",
+        "expected_behavior": "System should indicate ambiguity or ask for clarification.",
+        "expected_keywords": [
+          "not enough information",
+          "clarify",
+          "which election",
+          "uncertain"
+        ]
+      },
+      "rag": {
+        "response": "Error in generation: Grok API call failed: 404 Client Error: Not Found for url: https://api.groq.com/openai/v1",
+        "evaluation": {
+          "accuracy_hit": false,
+          "matched_expected_keywords": [],
+          "hallucination_detected": false,
+          "novel_numbers": [],
+          "consistency_score": 0.0,
+          "evaluation_skipped": true,
+          "response_consistency": 1.0
+        },
+        "retrieved_contexts": []
+      },
+      "pure_llm": {
+        "response": "Error calling LLM: Grok API call failed: 404 Client Error: Not Found for url: https://api.groq.com/openai/v1",
+        "evaluation": {
+          "accuracy_hit": false,
+          "matched_expected_keywords": [],
+          "hallucination_detected": false,
+          "novel_numbers": [],
+          "consistency_score": 0.0,
+          "evaluation_skipped": true,
+          "response_consistency": 1.0
+        }
+      }
+    },
+    {
+      "query": {
+        "id": 2,
+        "type": "misleading",
+        "query": "What was the budget allocation for the Ministry of Education in 2023?",
+        "description": "Misleading: Dataset contains 2025 budget, not 2023. Tests hallucination resistance.",
+        "expected_behavior": "System should reject or qualify the 2023 claim instead of inventing values.",
+        "expected_keywords": [
+          "not enough information",
+          "2025",
+          "cannot find",
+          "uncertain"
+        ]
+      },
+      "rag": {
+        "response": "Error in generation: Grok API call failed: 404 Client Error: Not Found for url: https://api.groq.com/openai/v1",
+        "evaluation": {
+          "accuracy_hit": false,
+          "matched_expected_keywords": [],
+          "hallucination_detected": false,
+          "novel_numbers": [],
+          "consistency_score": 0.0,
+          "evaluation_skipped": true,
+          "response_consistency": 1.0
+        },
+        "retrieved_contexts": []
+      },
+      "pure_llm": {
+        "response": "Error calling LLM: Grok API call failed: 404 Client Error: Not Found for url: https://api.groq.com/openai/v1",
+        "evaluation": {
+          "accuracy_hit": false,
+          "matched_expected_keywords": [],
+          "hallucination_detected": false,
+          "novel_numbers": [],
+          "consistency_score": 0.0,
+          "evaluation_skipped": true,
+          "response_consistency": 1.0
+        }
+      }
+    }
+  ],
+  "aggregate_metrics": {
+    "rag": {
+      "accuracy_rate": 0.0,
+      "hallucination_rate": 0.0,
+      "avg_response_consistency": 0.0,
+      "valid_samples": 0
+    },
+    "pure_llm": {
+      "accuracy_rate": 0.0,
+      "hallucination_rate": 0.0,
+      "avg_response_consistency": 0.0,
+      "valid_samples": 0
+    }
+  }
+}

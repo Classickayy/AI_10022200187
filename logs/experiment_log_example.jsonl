@@ -1,0 +1,4 @@
+{"timestamp": "2026-04-10T14:30:00", "experiment": "chunk_size_comparison", "config": {"chunk_size": 256, "overlap": 20}, "retrieval_accuracy": 0.65, "notes": "Small chunks lose context between sentences"}
+{"timestamp": "2026-04-10T15:00:00", "experiment": "chunk_size_comparison", "config": {"chunk_size": 512, "overlap": 50}, "retrieval_accuracy": 0.82, "notes": "Optimal balance. 512 tokens capture full paragraphs while maintaining specificity"}
+{"timestamp": "2026-04-10T16:00:00", "experiment": "reranking_impact", "baseline": {"precision@3": 0.6}, "with_reranking": {"precision@3": 0.85}, "notes": "Cross-encoder significantly improves ranking order despite higher latency (+120ms)"}
+{"timestamp": "2026-04-11T09:00:00", "experiment": "hallucination_test", "query": "2023 education budget", "response_type": "refusal", "correct": true, "notes": "System correctly identified data limitation rather than hallucinating"}
