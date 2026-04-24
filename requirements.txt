@@ -1,14 +1,15 @@
 # ============================================================
 # Pinned upper bounds on every package to prevent pip
 # backtracking during Render builds.
+# Python version locked to 3.11 via .python-version file.
 # ============================================================
 
 # Web Application Framework
 streamlit>=1.28.0,<1.36.0
 
 # Embeddings — ONNX-based, no PyTorch (fastembed ~50 MB vs torch ~600 MB)
-fastembed>=0.5.0,<1.0.0
-faiss-cpu>=1.7.4,<1.9.0
+fastembed>=0.5.0,<0.9.0
+faiss-cpu>=1.7.4,<1.8.0
 numpy>=1.24.0,<2.0.0
 
 # Large Language Model APIs
