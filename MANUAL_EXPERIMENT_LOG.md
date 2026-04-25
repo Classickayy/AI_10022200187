@@ -118,9 +118,4 @@ Detailed report saved to: logs\adversarial_evaluation.json
 
 ---
 
-## Examiner Verification Shortlist
 
-- Open `app.py` and run Streamlit UI
-- Check `ARCHITECTURE.md`
-- Check `logs/adversarial_evaluation.json`
-- Re-run `run_part_e_summary.py` after API configuration

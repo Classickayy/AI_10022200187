@@ -35,7 +35,6 @@ The system is implemented with custom data processing, FAISS vector retrieval, p
 - `src/rag_pipeline.py` - full pipeline orchestration + stage logging
 - `src/evaluator.py` - adversarial testing + RAG vs pure LLM evaluation
 - `src/feedback_memory.py` - innovation: feedback-driven retrieval enhancement
-- `ARCHITECTURE.md` - architecture diagram + explanation
 - `run_part_e_summary.py` - one-command Part E summary script
 - `logs/` - pipeline and evaluation outputs
 
@@ -63,12 +62,6 @@ streamlit run app.py
 - Saved evaluation JSON: `logs/adversarial_evaluation.json`
 - Pipeline stage logs: `logs/pipeline_YYYYMMDD.jsonl`
 
-## 5) Documentation Deliverables
-
-- Detailed system/design documentation: this `README.md`
-- Architecture/design rationale: `ARCHITECTURE.md`
-- Final submission checklist: `FINAL_DELIVERABLES_CHECKLIST.md`
-- Video walkthrough guide: `VIDEO_WALKTHROUGH_GUIDE.md`
 
 ## 6) Notes for Examiner
 
