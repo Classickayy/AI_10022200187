@@ -7,7 +7,7 @@ from src.rag_pipeline import RAGPipeline
 from src.feedback_memory import FeedbackMemoryRAG
 from config import Config
 
-st.set_page_config(page_title="Academic City RAG Assistant", layout="wide")
+st.set_page_config(page_title="Ghana Facts RAG AI Chatbot", layout="wide")
 
 # Initialize
 @st.cache_resource
