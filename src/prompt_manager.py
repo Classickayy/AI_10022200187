@@ -1,11 +1,15 @@
 from typing import List, Tuple, Dict
-import tiktoken
 
 class PromptManager:
     def __init__(self):
-        self.encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+        # No tiktoken dependency — use lightweight char-count estimator.
+        # Rule of thumb: 1 token ≈ 4 characters (accurate within ~10% for English).
         self.max_tokens = 2048
         self.min_similarity = 0.15
+
+    def _count_tokens(self, text: str) -> int:
+        """Estimate token count without tiktoken (1 token ≈ 4 chars)."""
+        return max(1, len(text) // 4)
     
     def _manage_context_window(self, contexts: List[Tuple[Dict, float]]) -> List[Tuple[Dict, float]]:
         """
@@ -54,16 +58,16 @@ If confidence is Low, explain what is missing."""
         
         # Build context string with similarity scores for transparency
         context_str = ""
-        total_tokens = len(self.encoding.encode(system_prompt + query))
-        
+        total_tokens = self._count_tokens(system_prompt + query)
+
         for i, (doc, score) in enumerate(contexts):
             doc_text = f"\n[Document {i+1} | Source: {doc['source']} | Relevance: {score:.2f}]\n{doc['content']}"
-            doc_tokens = len(self.encoding.encode(doc_text))
-            
+            doc_tokens = self._count_tokens(doc_text)
+
             if total_tokens + doc_tokens > self.max_tokens - 200:  # Buffer for response
                 context_str += "\n[Additional relevant documents omitted due to length constraints]"
                 break
-                
+
             context_str += doc_text
             total_tokens += doc_tokens
         
